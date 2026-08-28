@@ -1,14 +1,14 @@
 name: Deploy to Xserver
 
-# main へ push すると dist/ をビルドして id-lab.net/TaskMentorAI/ へ FTPS 転送する。
+# dist/ をビルドして id-lab.net/TaskMentorAI/ へ FTPS 転送する。
 # 事前に GitHub の Settings → Secrets and variables → Actions で以下を登録すること。
 #   FTP_SERVER   : エックスサーバーの FTP ホスト名（例 sv0000.xserver.jp）
 #   FTP_USERNAME : FTP ユーザー名
 #   FTP_PASSWORD : FTP パスワード
 
+# FTP ログインが 530 で通らないため、push トリガーは無効にしてある。
+# FTP 制限設定・パスワードを解決したら push トリガーを戻すこと。
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 env:
