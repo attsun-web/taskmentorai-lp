@@ -70,3 +70,32 @@ DB や uploads の移行はテーマアップロードとは別に行います�
 - パーマリンク設定を保存し直し、一覧・詳細 URL が 404 にならない。
 - 不要な開発用プラグインが無効化または削除されている。
 - DB 移行後、管理ユーザー・メールアドレス・サイト URL を本番用に確認済み。
+
+## 静的 LP のデプロイ（Xserver / GitHub Actions）
+
+TaskMentorAI の LP（`src/index.html`）は WordPress テーマとは別系統で、`dist/` に静的ビルドして Xserver へ配信します。
+
+### ビルド
+
+```bash
+yarn build          # base = /（ドメイン直下に置く場合）
+yarn build:deploy   # base = /TaskMentorAI/（サブディレクトリ配信用）
+```
+
+公開 URL が `https://id-lab.net/TaskMentorAI/` のため、本番用は必ず `yarn build:deploy` を使います。`yarn build` の成果物はアセットのパスがルート絶対（`/assets/...`）になり、サブディレクトリでは 404 になります。
+
+### 自動デプロイ
+
+`.github/workflows/deploy.yml` が `main` への push をトリガーに、`yarn build:deploy` → `dist/` を FTPS で転送します。事前に GitHub の Settings → Secrets and variables → Actions で以下を登録してください。
+
+| Secret | 内容 |
+| --- | --- |
+| `FTP_SERVER` | エックスサーバーの FTP ホスト名（例 `sv0000.xserver.jp`） |
+| `FTP_USERNAME` | FTP ユーザー名 |
+| `FTP_PASSWORD` | FTP パスワード |
+
+転送先はワークフロー内の `FTP_SERVER_DIR`（既定 `/id-lab.net/public_html/TaskMentorAI/`）です。FTP のディレクトリ構成が異なる場合はここを書き換えます。
+
+### 公開 URL を変えるとき
+
+`package.json` の `build:deploy` の `--base`、`src/index.html` の `og:url` / `og:image` / `canonical` の3か所を揃えて変更します。
