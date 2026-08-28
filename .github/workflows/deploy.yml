@@ -1,14 +1,19 @@
 name: Deploy to Xserver
 
-# main へ push すると dist/ をビルドして id-lab.net/portfolio/taskmentorai/ へ FTPS 転送する。
-# 事前に GitHub の Settings → Secrets and variables → Actions で以下を登録すること。
+# dist/ をビルドして id-lab.net/portfolio/taskmentorai/ へ FTPS 転送する。
+#
+# 【現状このワークフローは動かない】
+# エックスサーバーの「国外IPアクセス制限設定」により、海外IPで動く GitHub Actions の
+# ランナーからは FTP 接続が遮断され、Deploy ステップが Timeout (control socket) で失敗する。
+# サーバーパネル →「国外IPアクセス制限設定」で FTP の制限を OFF にすれば動作する。
+# それまでは dist/ を FTP ソフトで手動転送する運用とし、push トリガーは外してある。
+#
+# 有効化するときは Settings → Secrets and variables → Actions に以下を登録すること。
 #   FTP_SERVER   : エックスサーバーの FTP ホスト名（例 sv0000.xserver.jp）
 #   FTP_USERNAME : FTP ユーザー名
 #   FTP_PASSWORD : FTP パスワード
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 env:
