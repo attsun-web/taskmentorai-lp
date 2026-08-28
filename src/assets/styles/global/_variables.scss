@@ -1,0 +1,91 @@
+// =========================================================
+// Design tokens
+// 出典: Figma コーディングルール（node-id 957-577）
+// =========================================================
+
+// ローカルフォントの Noto Sans JP を優先して使うためのフォント定義
+@font-face {
+  font-family: "Local Noto Sans JP";
+  src: local("Noto Sans JP");
+  font-display: swap;
+}
+
+:root {
+  /* ------------------------------------------------------
+   * color
+   * ベース #FDFDFD / メイン #202020 / アクセント #599CC2
+   * ---------------------------------------------------- */
+  --color-bg: #fdfdfd;
+  --color-bg-white: #fff;
+
+  /* Reason / Function / Question / Contact セクションの下地 */
+  --color-bg-section: #f5f5f5;
+  --color-main: #202020;
+  --color-accent: #599cc2;
+  --color-accent-dark: #4a86a8;
+  --color-accent-gradient-end: #8bbfdd;
+  --color-accent-light: #eaf3f8;
+  --color-text: #202020;
+  --color-text-sub: #6b6b6b;
+  --color-text-inverse: #fdfdfd;
+  --color-bg-input: #f5f5f5;
+  --color-text-placeholder: #a1a1a1;
+  --color-border: #d9d9d9;
+  --color-border-strong: #a1a1a1;
+  --color-border-light: #dcdcdc;
+  --color-border-accent: #599cc2;
+  --color-required: #c92323;
+  --color-shadow: rgb(0 0 0 / 25%);
+  --color-overlay-dark: rgb(32 32 32 / 40%);
+
+  /* ------------------------------------------------------
+   * font
+   * 日本語: Noto Sans JP 400/700 ／ 英数字: Roboto 700
+   * ---------------------------------------------------- */
+  --font-primary: "Local Noto Sans JP", "Noto Sans JP", sans-serif;
+  --font-en: "Roboto", sans-serif;
+  --fw-regular: 400;
+  --fw-bold: 700;
+
+  /* 行間: PC 1.5 ／ SP 1.8（サイトタイトル・h2タイトルのみ 1） */
+  --line-height-base: 1.8;
+  --line-height-title: 1;
+
+  /* ------------------------------------------------------
+   * layout
+   * PC カンプ 1440px（コンテンツ 1120px）／ SP カンプ 430px（コンテンツ 390px）
+   * ---------------------------------------------------- */
+  --inner-width: 1120px;
+  --inner-width-narrow: 900px;
+  --inner-padding: 20px;
+  --header-height: 80px;
+  --mv-height: 497px;
+
+  /* ------------------------------------------------------
+   * z-index（10刻み）
+   * ---------------------------------------------------- */
+  --z-index-base: 0;
+  --z-index-overlay: 900;
+  --z-index-drawer: 910;
+
+  /* ヘッダーはドロワーより上（閉じるボタンを常に押せるようにするため） */
+  --z-index-header: 920;
+
+  /* ------------------------------------------------------
+   * effect
+   * ---------------------------------------------------- */
+  --radius-card: 10px;
+  --radius-pill: 50px;
+  --shadow-header: 0 4px 2px var(--color-shadow);
+  --shadow-card: 0 4px 4px var(--color-shadow);
+  --duration: 0.3s;
+  --easing: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+@media screen and (width >= 768px) {
+  :root {
+    --inner-padding: 40px;
+    --line-height-base: 1.5;
+    --mv-height: 766px;
+  }
+}

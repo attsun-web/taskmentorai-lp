@@ -1,0 +1,79 @@
+@use "@/global/breakpoints" as *;
+
+.p-function {
+  background-color: var(--color-bg-section);
+}
+
+.p-function__list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 30px;
+}
+
+// PC: 434px カードの 2 カラム（gap 32px）。最後の 1 枚は中央
+@include mq(md) {
+  .p-function__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+}
+
+.p-function__card {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border: 1px solid var(--color-bg-input);
+  border-radius: 5px;
+  background-color: var(--color-bg);
+  filter: drop-shadow(0 4px 2px var(--color-shadow));
+}
+
+@include mq(md) {
+  .p-function__card--center {
+    grid-column: 1 / -1;
+    width: 434px;
+    margin-inline: auto;
+  }
+}
+
+.p-function__heading {
+  display: flex;
+  align-items: center;
+}
+
+.p-function__icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+}
+
+.p-function__title {
+  margin-left: 10px;
+  color: var(--color-main);
+  font-size: 24px;
+  font-weight: var(--fw-bold);
+  line-height: 1.8;
+}
+
+@include mq(md) {
+  .p-function__title {
+    line-height: 1.5;
+  }
+}
+
+.p-function__heading + .p-function__description {
+  margin-top: 12px;
+}
+
+.p-function__description {
+  color: var(--color-main);
+  font-size: 14px;
+  font-weight: var(--fw-regular);
+  line-height: 1.8;
+}
+
+@include mq(md) {
+  .p-function__description {
+    line-height: 1.5;
+  }
+}

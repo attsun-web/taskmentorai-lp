@@ -1,0 +1,43 @@
+@use "@/global/breakpoints" as *;
+
+// h2タイトル: 英字（Roboto Bold）＋日本語（Noto Sans JP Regular）の 2 段組み
+.c-section-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-main);
+  text-align: center;
+}
+
+// 濃色背景のセクション（Pick Up）用
+.c-section-title--inverse {
+  color: var(--color-text-inverse);
+}
+
+.c-section-title__en {
+  display: block;
+  font-family: var(--font-en);
+  font-size: 32px;
+  font-weight: var(--fw-bold);
+  line-height: var(--line-height-title);
+}
+
+@include mq(md) {
+  .c-section-title__en {
+    font-size: 62px;
+  }
+}
+
+.c-section-title__ja {
+  display: block;
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  line-height: 1.8;
+}
+
+@include mq(md) {
+  .c-section-title__ja {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+}

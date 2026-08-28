@@ -1,0 +1,77 @@
+html {
+  font-size: 100%;
+
+  // ヘッダー固定分だけアンカーの着地位置をずらす
+  scroll-padding-top: var(--header-height);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: var(--fw-regular);
+  line-height: var(--line-height-base);
+}
+
+@media screen and (width >= 768px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+// ドロワー展開中は背面をスクロールさせない
+body.is-drawer-open {
+  overflow: hidden;
+}
+
+a {
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+// Safari 対策
+a[href^="tel"] {
+  text-decoration: none;
+}
+
+// PC 幅では電話発信を無効化（表示はそのまま）
+@media screen and (width >= 768px) {
+  a[href^="tel:"] {
+    pointer-events: none;
+  }
+}
+
+img,
+svg {
+  vertical-align: middle;
+}
+
+// cursor: pointer
+:where(:any-link, button, [type="button"], [type="reset"], [type="submit"], label[for], select, summary, [role="tab"], [role="button"]) {
+  cursor: pointer;
+}
+
+// iOS でボタンをダブルタップしたときの拡大を防止
+:where(button, [type="button"], [type="reset"], [type="submit"]) {
+  touch-action: manipulation;
+}
+
+// フォーカスのデフォルトをなくす（:focus-visible は各コンポーネントで指定）
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+// 16px 未満だと iOS でズームされるため
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select {
+  font-size: 16px;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}

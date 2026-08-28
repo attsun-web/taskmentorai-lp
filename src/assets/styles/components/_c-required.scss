@@ -1,0 +1,14 @@
+// 必須ラベル（アクセントの小さなタグ）
+.c-required {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  padding-block: 5px;
+  padding-inline: 10px;
+  background-color: var(--color-accent);
+  color: var(--color-text-inverse);
+  font-size: 12px;
+  font-weight: var(--fw-regular);
+  line-height: 1.5;
+}

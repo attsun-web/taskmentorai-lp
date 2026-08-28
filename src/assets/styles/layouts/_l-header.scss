@@ -1,0 +1,183 @@
+@use "@/global/breakpoints" as *;
+
+// ヘッダー: 上部固定。lg(1120px) 未満は SP カンプのデザイン（ハンバーガー）
+.l-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-index-header);
+  width: 100%;
+  height: var(--header-height);
+  background-color: var(--color-bg);
+  filter: drop-shadow(0 4px 2px var(--color-shadow));
+}
+
+.l-header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding-inline: 20px;
+}
+
+@include mq(lg) {
+  .l-header__inner {
+    padding-inline: 30px;
+  }
+}
+
+.l-header__logo {
+  width: 156px;
+}
+
+@include mq(lg) {
+  .l-header__logo {
+    width: 200px;
+  }
+}
+
+.l-header__logo-link {
+  display: block;
+}
+
+.l-header__logo-link:focus-visible {
+  outline: 2px solid var(--color-main);
+  outline-offset: 2px;
+}
+
+.l-header__logo-link img {
+  width: 100%;
+  height: auto;
+}
+
+// ---------------------------------------------------------
+// PC グローバルナビ
+// ---------------------------------------------------------
+.l-header__nav {
+  display: none;
+}
+
+@include mq(lg) {
+  .l-header__nav {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    height: 100%;
+  }
+}
+
+.l-header__nav-list {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.l-header__nav-link,
+.l-header__login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 52px;
+  padding: 15px;
+  border-radius: 5px;
+  color: var(--color-main);
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+  line-height: 1.5;
+  white-space: nowrap;
+  transition: color var(--duration) var(--easing);
+}
+
+@media (any-hover: hover) {
+  .l-header__nav-link:hover {
+    color: var(--color-accent);
+  }
+}
+
+.l-header__nav-link:focus-visible,
+.l-header__login:focus-visible {
+  outline: 2px solid var(--color-main);
+  outline-offset: -2px;
+}
+
+// ログインはホバーで下線（カンプ: 60 × 3px）
+.l-header__login {
+  position: relative;
+  z-index: 0;
+}
+
+.l-header__login::after {
+  content: "";
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  z-index: -1;
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-accent);
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: opacity var(--duration) var(--easing);
+}
+
+@media (any-hover: hover) {
+  .l-header__login:hover::after {
+    opacity: 1;
+  }
+}
+
+.l-header__divider {
+  width: 1px;
+  height: 32px;
+  background-color: var(--color-main);
+}
+
+.l-header__entry {
+  width: 200px;
+  margin-left: 10px;
+}
+
+// ---------------------------------------------------------
+// ハンバーガーボタン（開閉トグル 1 つ）
+// ---------------------------------------------------------
+.l-header__menu-button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}
+
+@include mq(lg) {
+  .l-header__menu-button {
+    display: none;
+  }
+}
+
+.l-header__menu-button:focus-visible {
+  outline: 2px solid var(--color-main);
+  outline-offset: 2px;
+}
+
+.l-header__menu-bar {
+  display: block;
+  width: 30px;
+  height: 2px;
+  background-color: var(--color-main);
+  transition:
+    transform var(--duration) var(--easing),
+    opacity var(--duration) var(--easing);
+}
+
+// 開いているときは × に変形
+.l-header__menu-button.is-open .l-header__menu-bar:nth-child(1) {
+  transform: translateY(3.5px) rotate(45deg);
+}
+
+.l-header__menu-button.is-open .l-header__menu-bar:nth-child(2) {
+  transform: translateY(-3.5px) rotate(-45deg);
+}

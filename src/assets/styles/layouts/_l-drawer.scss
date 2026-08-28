@@ -1,0 +1,104 @@
+@use "@/global/breakpoints" as *;
+
+// SP メニュー: 右からスライドイン。幅は画面幅 −30px、高さは画面いっぱい（コーディングルール指定）
+// 左に残る 30px はオーバーレイで覆い、背面のコンテンツが見えないようにする
+.l-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: var(--z-index-drawer);
+  overflow-y: auto;
+  width: calc(100% - 30px);
+  height: 100dvh;
+  padding-top: var(--header-height);
+  padding-bottom: 50px;
+  background-color: var(--color-bg-white);
+  transform: translateX(100%);
+  transition: transform var(--duration) var(--easing);
+}
+
+.l-drawer.is-open {
+  transform: translateX(0);
+}
+
+@include mq(lg) {
+  .l-drawer {
+    display: none;
+  }
+}
+
+// 背面を完全に隠すオーバーレイ（クリックで閉じる）
+.l-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-index-overlay);
+  visibility: hidden;
+  background-color: var(--color-bg-white);
+  opacity: 0;
+  transition:
+    opacity var(--duration) var(--easing),
+    visibility var(--duration) var(--easing);
+}
+
+.l-drawer-overlay.is-open {
+  visibility: visible;
+  opacity: 1;
+}
+
+@include mq(lg) {
+  .l-drawer-overlay {
+    display: none;
+  }
+}
+
+.l-drawer__nav {
+  padding-block: 50px;
+}
+
+.l-drawer__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.l-drawer__item {
+  width: 160px;
+}
+
+.l-drawer__item--wide {
+  width: 320px;
+}
+
+.l-drawer__link {
+  display: block;
+  width: 100%;
+  padding-block: 10px;
+  color: var(--color-main);
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  line-height: 1.8;
+  text-align: center;
+  transition: color var(--duration) var(--easing);
+}
+
+@media (any-hover: hover) {
+  .l-drawer__link:hover {
+    color: var(--color-accent);
+  }
+}
+
+.l-drawer__link:focus-visible {
+  outline: 2px solid var(--color-main);
+  outline-offset: -2px;
+}
+
+.l-drawer__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 300px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}

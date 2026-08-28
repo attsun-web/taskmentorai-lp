@@ -1,0 +1,21 @@
+@use "@/global/breakpoints" as *;
+
+.u-pc-only {
+  display: none;
+}
+
+@include mq(md) {
+  .u-pc-only {
+    display: block;
+  }
+}
+
+.u-sp-only {
+  display: block;
+}
+
+@include mq(md) {
+  .u-sp-only {
+    display: none;
+  }
+}

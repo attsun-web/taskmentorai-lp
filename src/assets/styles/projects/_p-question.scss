@@ -1,0 +1,167 @@
+@use "@/global/breakpoints" as *;
+
+.p-question {
+  background-color: var(--color-bg-section);
+}
+
+.p-question__list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+@include mq(md) {
+  .p-question__list {
+    gap: 24px;
+  }
+}
+
+.p-question__item {
+  padding: 20px;
+  border-radius: 15px;
+  background-color: var(--color-bg);
+  filter: drop-shadow(0 4px 2px var(--color-shadow));
+}
+
+@include mq(md) {
+  .p-question__item {
+    padding-block: 30px;
+    padding-inline: 50px;
+  }
+}
+
+.p-question__heading {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.p-question__button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+}
+
+.p-question__button:focus-visible {
+  outline: 2px solid var(--color-main);
+  outline-offset: 4px;
+}
+
+.p-question__mark {
+  flex-shrink: 0;
+  align-self: flex-start;
+  color: var(--color-accent);
+  font-family: var(--font-en);
+  font-size: 16px;
+  font-weight: var(--fw-bold);
+  line-height: 1.8;
+}
+
+@include mq(md) {
+  .p-question__mark {
+    font-size: 24px;
+    line-height: 1.5;
+  }
+}
+
+.p-question__text {
+  flex: 1 0 0;
+  min-width: 0;
+  margin-left: 5px;
+  color: var(--color-main);
+  font-size: 16px;
+  font-weight: var(--fw-bold);
+  line-height: 1.8;
+}
+
+@include mq(md) {
+  .p-question__text {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+}
+
+// ＋ / − アイコン（カンプ: 24 × 2.6px の線）
+.p-question__icon {
+  position: relative;
+  z-index: 0;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  margin-left: 5px;
+}
+
+.p-question__icon::before,
+.p-question__icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 2.6px;
+  background-color: var(--color-accent);
+  transform: translate(-50%, -50%);
+  transition: transform var(--duration) var(--easing);
+}
+
+.p-question__icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.p-question__item.is-open .p-question__icon::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+@include mq(md) {
+  // PC カンプは全問が開いた状態なのでアイコンは出さない
+  .p-question__icon {
+    display: none;
+  }
+}
+
+// ---------------------------------------------------------
+// 回答
+// ---------------------------------------------------------
+.p-question__answer {
+  display: flex;
+  align-items: flex-start;
+  overflow: hidden;
+  height: 0;
+  margin-top: 0;
+  transition:
+    height var(--duration) var(--easing),
+    margin-top var(--duration) var(--easing);
+}
+
+.p-question__item.is-open .p-question__answer {
+  height: auto;
+  margin-top: 20px;
+}
+
+// PC カンプ: Q と A の間にアクセントの区切り線を入れ、常に開いた状態にする
+@include mq(md) {
+  .p-question__answer {
+    height: auto;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 2px solid var(--color-accent);
+  }
+}
+
+.p-question__answer-text {
+  flex: 1 0 0;
+  min-width: 0;
+  margin-left: 5px;
+  color: var(--color-main);
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  line-height: 1.8;
+}
+
+@include mq(md) {
+  .p-question__answer-text {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}

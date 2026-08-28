@@ -1,0 +1,319 @@
+@use "@/global/breakpoints" as *;
+
+.p-price__content {
+  position: relative;
+  z-index: 0;
+}
+
+// ---------------------------------------------------------
+// 横スクロールの案内（スクロールが必要なときだけ表示）
+// ---------------------------------------------------------
+.p-price__scroll-hint {
+  display: none;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 42px;
+  padding-right: 10px;
+  color: var(--color-main);
+  font-family: var(--font-en);
+  font-size: 16px;
+  font-weight: var(--fw-bold);
+  line-height: 1.8;
+}
+
+.p-price__content.is-scrollable .p-price__scroll-hint {
+  display: flex;
+}
+
+.p-price__scroll-hint-text {
+  position: relative;
+  z-index: 0;
+  display: block;
+  padding-top: 11px;
+}
+
+// カンプの矢印（100 × 11px）。右へ流れるアニメーション
+.p-price__scroll-hint-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  width: 100px;
+  height: 11px;
+  background-image: url("../../images/price/icon-scroll-arrow.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: p-price-scroll-arrow 1.6s ease-in-out infinite;
+}
+
+@keyframes p-price-scroll-arrow {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateX(-8px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p-price__scroll-hint-text::before {
+    animation: none;
+  }
+}
+
+// ---------------------------------------------------------
+// 比較表（1 列目を固定、プラン列を横スクロール）
+// ---------------------------------------------------------
+.p-price__scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-block: 10px;
+}
+
+// 列間 20px は border-spacing で確保する（カンプの plan_group gap と同値）
+.p-price__table {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 20px 0;
+}
+
+.p-price__corner,
+.p-price__label {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  width: 150px;
+  min-width: 150px;
+  background-color: var(--color-bg);
+}
+
+// カンプの項目列は 376px。border-spacing が外側にも 20px 入るぶんを差し引き、
+// 356 + 220 × 3 + 20 × 5 = 1116px でインナー幅 1120px に収める
+@include mq(md) {
+  .p-price__corner,
+  .p-price__label {
+    width: 356px;
+    min-width: 356px;
+  }
+}
+
+.p-price__label {
+  height: 35px;
+  padding: 10px;
+  color: var(--color-main);
+  font-size: 14px;
+  font-weight: var(--fw-regular);
+  line-height: 1.8;
+  text-align: center;
+}
+
+@include mq(md) {
+  .p-price__label {
+    height: 44px;
+    font-size: 16px;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+}
+
+// 奇数行にだけ薄いグレーを敷く（カンプの縞模様）
+.p-price__table tbody tr:nth-child(odd) .p-price__label,
+.p-price__table tbody tr:nth-child(odd) .p-price__cell {
+  background-color: var(--color-bg-input);
+}
+
+// ---------------------------------------------------------
+// プラン列
+// ---------------------------------------------------------
+// プラン列の外枠 6px。色は各プランの modifier で指定するため、
+// ここでは太さとスタイルだけ指定して border-color を上書きしない
+.p-price__plan {
+  width: 220px;
+  min-width: 220px;
+  padding: 0;
+  border-top: 6px solid;
+  border-inline: 6px solid;
+  font-weight: var(--fw-regular);
+  vertical-align: top;
+  text-align: center;
+}
+
+// プラン名・説明・料金・ボタンの縦位置を 3 プランでそろえる（カンプ SP 383px / PC 372px）
+.p-price__plan-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 383px;
+  padding-block: 30px;
+  padding-inline: 20px;
+}
+
+@include mq(md) {
+  .p-price__plan-inner {
+    height: 372px;
+  }
+}
+
+.p-price__cell {
+  height: 35px;
+  border-inline: 6px solid;
+  vertical-align: middle;
+  text-align: center;
+}
+
+@include mq(md) {
+  .p-price__cell {
+    height: 44px;
+  }
+}
+
+.p-price__table tbody tr:last-child .p-price__cell {
+  border-bottom-width: 6px;
+  border-bottom-style: solid;
+}
+
+.p-price__plan--free,
+.p-price__cell--free {
+  border-color: var(--color-accent);
+}
+
+.p-price__plan--personal,
+.p-price__cell--personal {
+  border-color: var(--color-border-strong);
+}
+
+.p-price__plan--business,
+.p-price__cell--business {
+  border-color: var(--color-border-light);
+}
+
+.p-price__plan-name {
+  display: block;
+  color: var(--color-main);
+  font-size: 18px;
+  font-weight: var(--fw-bold);
+  line-height: 1.5;
+}
+
+.p-price__plan-name-en {
+  display: block;
+  color: var(--color-main);
+  font-family: var(--font-en);
+  font-size: 18px;
+  font-weight: var(--fw-bold);
+  line-height: 1.5;
+}
+
+// 説明文が伸びて料金・ボタンの位置がずれないよう、残りの高さを吸収させる
+.p-price__plan-description {
+  display: block;
+  flex: 1 0 0;
+  width: 100%;
+  min-height: 0;
+  margin-top: 16px;
+  color: var(--color-main);
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  line-height: 1.5;
+  text-align: left;
+}
+
+.p-price__plan-price,
+.p-price__plan-contact {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: baseline;
+  height: 72px;
+  margin-top: 16px;
+  color: var(--color-main);
+}
+
+.p-price__plan-unit {
+  font-size: 18px;
+  font-weight: var(--fw-regular);
+  line-height: 1.5;
+}
+
+.p-price__plan-amount {
+  margin-left: 4.357px;
+  font-family: var(--font-en);
+  font-size: 48px;
+  font-weight: var(--fw-bold);
+  line-height: 1.5;
+}
+
+.p-price__plan-contact {
+  align-items: center;
+  font-size: 18px;
+  font-weight: var(--fw-bold);
+  line-height: 1.5;
+}
+
+.p-price__plan-button {
+  flex-shrink: 0;
+  margin-top: 16px;
+}
+
+.p-price__check {
+  width: 32px;
+  height: 32px;
+  margin-inline: auto;
+}
+
+// ---------------------------------------------------------
+// 注釈
+// ---------------------------------------------------------
+.p-price__note {
+  max-width: var(--inner-width-narrow);
+  margin-top: 30px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+@include mq(md) {
+  .p-price__note {
+    margin-top: 70px;
+  }
+}
+
+.p-price__note-title {
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--color-accent);
+  color: var(--color-main);
+  font-size: 18px;
+  font-weight: var(--fw-bold);
+  line-height: 1.8;
+}
+
+.p-price__note-title + .p-price__note-text {
+  margin-top: 10px;
+}
+
+.p-price__note-text {
+  color: var(--color-main);
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  line-height: 1.8;
+}
+
+@include mq(md) {
+  .p-price__note-text {
+    line-height: 1.5;
+  }
+}
+
+.p-price__note-text + .p-price__note-text {
+  margin-top: 10px;
+}
+
+.p-price__note-strong {
+  color: var(--color-accent);
+  font-weight: var(--fw-bold);
+}

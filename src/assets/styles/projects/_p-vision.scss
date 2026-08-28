@@ -1,0 +1,148 @@
+@use "@/global/breakpoints" as *;
+
+// カンプの vision_background（うっすらとした背景画像）
+.p-vision {
+  position: relative;
+  z-index: 0;
+  background-image: url("../../images/vision/vision-bg.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: var(--color-bg);
+}
+
+.p-vision__content {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+@include mq(lg) {
+  .p-vision__content {
+    gap: 120px;
+
+    // カンプ: vision_content は 1120px コンテナのさらに内側 50px
+    padding-inline: 90px;
+  }
+}
+
+// 2 カラムはインナーに 400px 画像＋本文が収まる lg（1120px）以上でのみ適用する
+.p-vision__item {
+  display: flex;
+  flex-direction: column;
+}
+
+@include mq(lg) {
+  .p-vision__item {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.p-vision__item--reverse {
+  flex-direction: column;
+}
+
+@include mq(lg) {
+  .p-vision__item--reverse {
+    flex-direction: row-reverse;
+  }
+}
+
+.p-vision__figure {
+  order: -1;
+  width: 100%;
+  max-width: 390px;
+  margin-inline: auto;
+}
+
+@include mq(lg) {
+  .p-vision__figure {
+    order: 0;
+    flex-shrink: 0;
+    width: 400px;
+    max-width: none;
+    margin-right: 0;
+    margin-left: 50px;
+  }
+
+  .p-vision__item--reverse .p-vision__figure {
+    margin-right: 50px;
+    margin-left: 0;
+  }
+}
+
+.p-vision__figure img {
+  width: 100%;
+  height: 216px;
+  object-fit: cover;
+}
+
+@include mq(lg) {
+  .p-vision__figure img {
+    height: 300px;
+  }
+}
+
+// ロゴは切り抜かず全体を表示する
+.p-vision__figure .p-vision__logo {
+  object-fit: contain;
+}
+
+// カンプでは画像下側を見せる指定（object-bottom）
+.p-vision__figure img[src*="vision-03"] {
+  object-position: bottom;
+}
+
+.p-vision__text {
+  width: 100%;
+  margin-top: 30px;
+}
+
+@include mq(lg) {
+  .p-vision__text {
+    flex: 1 0 0;
+    min-width: 0;
+    margin-top: 0;
+  }
+}
+
+.p-vision__title {
+  color: var(--color-accent);
+  font-size: 24px;
+  font-weight: var(--fw-bold);
+  line-height: 1.8;
+}
+
+@include mq(lg) {
+  .p-vision__title {
+    font-size: 32px;
+    line-height: 1.5;
+  }
+}
+
+.p-vision__description {
+  margin-top: 30px;
+}
+
+.p-vision__paragraph {
+  color: var(--color-main);
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  line-height: 1.8;
+}
+
+@include mq(lg) {
+  .p-vision__paragraph {
+    line-height: 1.5;
+  }
+}
+
+.p-vision__paragraph + .p-vision__paragraph {
+  margin-top: 20px;
+}
+
+// カンプで 1 つのテキストブロック内の改行として扱われている段落
+.p-vision__paragraph + .p-vision__paragraph--tight {
+  margin-top: 0;
+}

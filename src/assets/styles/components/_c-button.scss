@@ -1,0 +1,91 @@
+@use "@/global/breakpoints" as *;
+
+// カンプ共通のピル型ボタン（blue_btn / whiteblue_btn / blue_iconbtn / white_iconbtn）
+.c-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-block: 14px;
+  padding-inline: 10px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+  line-height: 1.5;
+  text-align: center;
+  transition:
+    background-color var(--duration) var(--easing),
+    border-color var(--duration) var(--easing),
+    color var(--duration) var(--easing);
+}
+
+@include mq(md) {
+  .c-button {
+    padding-block: 16px;
+  }
+}
+
+.c-button:focus-visible {
+  outline: 2px solid var(--color-main);
+  outline-offset: 2px;
+}
+
+// blue_btn / blue_iconbtn
+.c-button--blue {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+  color: var(--color-text-inverse);
+}
+
+@media (any-hover: hover) {
+  .c-button--blue:hover {
+    border-color: var(--color-accent);
+    background-color: var(--color-bg);
+    color: var(--color-accent);
+  }
+}
+
+// whiteblue_btn（白地・アクセント枠）
+.c-button--outline {
+  border-color: var(--color-accent);
+  background-color: var(--color-bg);
+  color: var(--color-accent);
+}
+
+@media (any-hover: hover) {
+  .c-button--outline:hover {
+    background-color: var(--color-accent);
+    color: var(--color-text-inverse);
+  }
+}
+
+// white_iconbtn（白地・メインカラー枠）
+.c-button--white {
+  border-color: var(--color-main);
+  background-color: var(--color-bg);
+  color: var(--color-main);
+}
+
+@media (any-hover: hover) {
+  .c-button--white:hover {
+    background-color: var(--color-main);
+    color: var(--color-text-inverse);
+  }
+}
+
+// アイコン付き: アイコンは左端、ラベルは残り幅の中央
+.c-button--icon {
+  justify-content: flex-start;
+}
+
+.c-button__icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.c-button__label {
+  flex: 1 0 0;
+  min-width: 0;
+}

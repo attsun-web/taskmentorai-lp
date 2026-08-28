@@ -1,0 +1,13 @@
+// 実効内寸がカンプ値（PC 1120px / SP 390px）と一致するように
+// max-width = インナー幅 + PC ガター × 2 とする
+.l-inner {
+  width: 100%;
+  max-width: calc(var(--inner-width) + 40px * 2);
+  margin-inline: auto;
+  padding-inline: var(--inner-padding);
+}
+
+// contact / question / function / price 注釈 / company で使う狭いインナー（900px）
+.l-inner--narrow {
+  max-width: calc(var(--inner-width-narrow) + 40px * 2);
+}

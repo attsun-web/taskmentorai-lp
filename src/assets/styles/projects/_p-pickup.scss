@@ -1,0 +1,191 @@
+@use "@/global/breakpoints" as *;
+
+.p-pickup {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  background-image: url("../../images/pickup/pickup-bg.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: var(--color-main);
+}
+
+// スライダーはインナー内で切り取る（カンプ: 表示領域 966px、左右 117px が矢印のスペース）
+.p-pickup__slider {
+  --pickup-gutter: 20px;
+
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  max-width: calc(966px + 117px * 2);
+  margin-inline: auto;
+  padding-inline: var(--pickup-gutter);
+}
+
+@include mq(md) {
+  .p-pickup__slider {
+    --pickup-gutter: 60px;
+  }
+}
+
+@include mq(lg) {
+  .p-pickup__slider {
+    --pickup-gutter: 117px;
+  }
+}
+
+// ---------------------------------------------------------
+// カード（PC 300 × 367 / SP 300 × 387）
+// ---------------------------------------------------------
+.p-pickup__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  height: 100%;
+  padding-bottom: 30px;
+  border-radius: 15px;
+  background-color: var(--color-bg);
+}
+
+.p-pickup__thumb {
+  width: 100%;
+  height: 168px;
+  object-fit: cover;
+}
+
+.p-pickup__name {
+  margin-top: 20px;
+  color: var(--color-main);
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  line-height: 1.5;
+  text-align: center;
+}
+
+.p-pickup__comment {
+  width: 240px;
+  margin-top: 20px;
+  color: var(--color-main);
+  font-size: 14px;
+  font-weight: var(--fw-regular);
+  line-height: 1.5;
+}
+
+// ---------------------------------------------------------
+// Splide の見た目をカンプに合わせる
+// ---------------------------------------------------------
+.p-pickup__slider .splide__track {
+  overflow: hidden;
+}
+
+.p-pickup__slider .splide__list {
+  align-items: stretch;
+}
+
+.p-pickup__slider .splide__slide {
+  height: auto;
+}
+
+// Splide が生成するクラス名は FLOCSS の命名規則の対象外
+/* stylelint-disable selector-class-pattern */
+
+// ページネーション（PC 12px / SP 8px の丸）
+.p-pickup__slider .splide__pagination {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  padding: 0;
+}
+
+@include mq(md) {
+  .p-pickup__slider .splide__pagination {
+    gap: 12px;
+    margin-top: 70px;
+  }
+}
+
+.p-pickup__slider .splide__pagination__page {
+  width: 8px;
+  height: 8px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-bg-input);
+  opacity: 1;
+  transition: background-color var(--duration) var(--easing);
+}
+
+@include mq(md) {
+  .p-pickup__slider .splide__pagination__page {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.p-pickup__slider .splide__pagination__page.is-active {
+  background-color: var(--color-accent);
+  transform: none;
+}
+
+.p-pickup__slider .splide__pagination__page:focus-visible {
+  outline: 2px solid var(--color-bg);
+  outline-offset: 2px;
+}
+
+// 矢印（PC のみ表示。カンプではインナー左右端 160px / 1280px の位置）
+.p-pickup__slider .splide__arrows {
+  display: none;
+}
+
+@include mq(md) {
+  .p-pickup__slider .splide__arrows {
+    display: block;
+  }
+}
+
+.p-pickup__slider .splide__arrow {
+  position: absolute;
+  top: calc((367px / 2) + 1px);
+  z-index: 10;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border-radius: 50%;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  opacity: 1;
+  transform: translateY(-50%);
+  transition: opacity var(--duration) var(--easing);
+}
+
+.p-pickup__slider .splide__arrow svg {
+  display: none;
+}
+
+.p-pickup__slider .splide__arrow--prev {
+  left: calc((var(--pickup-gutter) - 42px) / 2);
+  background-image: url("../../images/common/icon-arrow-prev.svg");
+}
+
+.p-pickup__slider .splide__arrow--next {
+  right: calc((var(--pickup-gutter) - 42px) / 2);
+  background-image: url("../../images/common/icon-arrow-next.svg");
+}
+
+@media (any-hover: hover) {
+  .p-pickup__slider .splide__arrow:hover:not(:disabled) {
+    opacity: 0.7;
+  }
+}
+
+.p-pickup__slider .splide__arrow:focus-visible {
+  outline: 2px solid var(--color-bg);
+  outline-offset: 2px;
+}

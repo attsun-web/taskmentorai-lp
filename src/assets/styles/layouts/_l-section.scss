@@ -1,0 +1,23 @@
+@use "@/global/breakpoints" as *;
+
+// 各セクション共通の上下余白（カンプ: SP 50px / PC 100px）
+.l-section {
+  padding-block: 50px;
+}
+
+@include mq(md) {
+  .l-section {
+    padding-block: 100px;
+  }
+}
+
+// h2タイトルからコンテンツまでの距離（カンプ: SP 30px / PC 70px）
+.l-section__content {
+  margin-top: 30px;
+}
+
+@include mq(md) {
+  .l-section__content {
+    margin-top: 70px;
+  }
+}

@@ -1,0 +1,30 @@
+@use "sass:map";
+
+// モバイルファースト（config.local.md「レスポンシブ設定」に対応）
+// sm 600 / md 768（SP→PC レイアウト切替）/ lg 1120（ヘッダーを PC ナビへ切替）/ xl 1440
+$breakpoints: (
+  sm: 600,
+  md: 768,
+  lg: 1120,
+  xl: 1440,
+);
+$mediaqueries: (
+  sm: "screen and (min-width: #{map.get($breakpoints, 'sm')}px)",
+  md: "screen and (min-width: #{map.get($breakpoints, 'md')}px)",
+  lg: "screen and (min-width: #{map.get($breakpoints, 'lg')}px)",
+  xl: "screen and (min-width: #{map.get($breakpoints, 'xl')}px)",
+);
+
+// min-width（モバイルファースト）: @include mq(md) { ... }
+@mixin mq($mediaquery: md) {
+  @media #{map.get($mediaqueries, $mediaquery)} {
+    @content;
+  }
+}
+
+// max-width 相当: @include mq-down(lg) { ... }
+@mixin mq-down($mediaquery: md) {
+  @media not all and (min-width: #{map.get($breakpoints, $mediaquery)}px) {
+    @content;
+  }
+}

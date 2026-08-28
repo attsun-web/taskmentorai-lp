@@ -1,0 +1,4 @@
+// ヘッダーが position: fixed のため、本文をヘッダー高さ分だけ下げる
+.l-main {
+  padding-top: var(--header-height);
+}

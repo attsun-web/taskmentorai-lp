@@ -1,0 +1,123 @@
+@use "@/global/breakpoints" as *;
+
+.p-cta {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  padding-block: 50px;
+  background-image: linear-gradient(to bottom, var(--color-accent), var(--color-accent-gradient-end));
+}
+
+@include mq(md) {
+  .p-cta {
+    padding-block: 100px;
+  }
+}
+
+// 背景に薄く敷くロゴ（不透明度 15%）
+.p-cta__watermark {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 77px;
+  object-fit: cover;
+  opacity: 0.15;
+}
+
+@include mq(md) {
+  .p-cta__watermark {
+    height: 261px;
+  }
+}
+
+.p-cta__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+@include mq(md) {
+  .p-cta__inner {
+    flex-direction: row;
+    align-items: stretch;
+  }
+}
+
+.p-cta__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  border: 1px solid var(--color-bg);
+  border-radius: 15px;
+  background-color: var(--color-bg);
+  filter: drop-shadow(0 4px 2px var(--color-shadow));
+}
+
+// 2 枚のカードで見出しの行数が違っても、ボタンの高さがそろうようにする
+@include mq(md) {
+  .p-cta__card {
+    flex: 1 0 0;
+    justify-content: space-between;
+    min-width: 0;
+    padding-block: 50px;
+    padding-inline: 20px;
+  }
+}
+
+.p-cta__heading {
+  display: flex;
+  align-items: center;
+}
+
+@include mq(md) {
+  .p-cta__heading {
+    align-items: flex-start;
+  }
+}
+
+.p-cta__icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+@include mq(md) {
+  .p-cta__icon {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.p-cta__title {
+  color: var(--color-main);
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+  line-height: 1.8;
+  text-align: center;
+}
+
+@include mq(md) {
+  .p-cta__title {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+}
+
+// タブレット幅ではカード内に収まるよう可変にする（カンプ最大 385px）
+.p-cta__button {
+  width: 100%;
+  max-width: 385px;
+  margin-top: 15px;
+  padding-block: 8px;
+}
+
+@include mq(md) {
+  .p-cta__button {
+    margin-top: 32px;
+  }
+}

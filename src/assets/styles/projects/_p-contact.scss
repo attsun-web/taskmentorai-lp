@@ -1,0 +1,220 @@
+@use "@/global/breakpoints" as *;
+
+.p-contact {
+  background-color: var(--color-bg-section);
+}
+
+.p-contact__lead {
+  color: var(--color-main);
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  line-height: 1.8;
+}
+
+@include mq(md) {
+  .p-contact__lead {
+    width: 700px;
+    margin-inline: auto;
+    line-height: 1.5;
+  }
+}
+
+.p-contact__form {
+  margin-top: 30px;
+}
+
+@include mq(md) {
+  .p-contact__form {
+    margin-top: 50px;
+  }
+}
+
+.p-contact__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@include mq(md) {
+  .p-contact__fields {
+    gap: 32px;
+  }
+}
+
+.p-contact__label-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.p-contact__label {
+  margin-left: 8px;
+  color: var(--color-main);
+  font-size: 18px;
+  font-weight: var(--fw-bold);
+  line-height: 1.8;
+}
+
+@include mq(md) {
+  .p-contact__label {
+    line-height: 1.5;
+  }
+}
+
+// 必須未入力のエラー表示（カンプ 963:1061「※入力してください」18px / Bold / #C92323）
+.p-contact__error {
+  display: none;
+  margin-left: 8px;
+  color: var(--color-required);
+  font-size: 18px;
+  font-weight: var(--fw-bold);
+  line-height: 1.8;
+}
+
+@include mq(md) {
+  .p-contact__error {
+    line-height: 1.5;
+  }
+}
+
+.p-contact__field.is-error .p-contact__error {
+  display: block;
+}
+
+.p-contact__input {
+  width: 100%;
+  height: 46px;
+  margin-top: 10px;
+  padding-left: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 0;
+  background-color: var(--color-bg);
+  color: var(--color-main);
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  line-height: 1.5;
+}
+
+.p-contact__input::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+.p-contact__input:focus-visible {
+  border-color: var(--color-accent);
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+.p-contact__field.is-error .p-contact__input {
+  border-color: var(--color-required);
+}
+
+.p-contact__textarea {
+  height: 92px;
+  padding-top: 10px;
+  padding-right: 20px;
+}
+
+// セレクトはブラウザ標準の挙動のまま、矢印だけカンプに合わせる
+.p-contact__select-wrapper {
+  position: relative;
+  z-index: 0;
+}
+
+.p-contact__select {
+  padding-right: 46px;
+  appearance: none;
+}
+
+.p-contact__select-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 0;
+  z-index: 1;
+  width: 46px;
+  height: 46px;
+  background-image: url("../../images/contact/icon-select-arrow.svg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+// ---------------------------------------------------------
+// 注意書き・同意チェック
+// ---------------------------------------------------------
+.p-contact__information {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+@include mq(md) {
+  .p-contact__information {
+    margin-top: 50px;
+  }
+}
+
+.p-contact__note {
+  color: var(--color-main);
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  line-height: 1.8;
+}
+
+@include mq(md) {
+  .p-contact__note {
+    width: 700px;
+    line-height: 1.5;
+  }
+}
+
+.p-contact__agreement {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.p-contact__checkbox {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  border: 1px solid var(--color-border);
+  accent-color: var(--color-accent);
+}
+
+.p-contact__checkbox:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.p-contact__agreement-label {
+  margin-left: 10px;
+  color: var(--color-main);
+  font-size: 14px;
+  font-weight: var(--fw-regular);
+  line-height: 1.5;
+}
+
+.p-contact__submit {
+  width: 100%;
+  margin-top: 30px;
+}
+
+@include mq(md) {
+  .p-contact__submit {
+    width: 326px;
+    margin-top: 50px;
+    margin-inline: auto;
+  }
+}
+
+.p-contact__submit:disabled {
+  border-color: var(--color-border);
+  background-color: var(--color-border);
+  color: var(--color-text-inverse);
+  cursor: not-allowed;
+}

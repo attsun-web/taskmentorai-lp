@@ -1,0 +1,342 @@
+@use "@/global/breakpoints" as *;
+
+// MV: 背景画像は画面幅に応じて拡大（カンプ 1440px 時の自然高さ 766px = 画像 1024×544 の等倍）
+.p-mv {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  height: 497px;
+}
+
+@include mq(lg) {
+  .p-mv {
+    height: 678px;
+  }
+}
+
+.p-mv__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.p-mv__inner {
+  width: 100%;
+}
+
+@include mq(lg) {
+  .p-mv__inner {
+    // カンプ: MV_copy_group は 1120px コンテナのさらに内側 20px
+    padding-inline: 60px;
+  }
+}
+
+// SP / タブレットではコピーのかたまり（カンプ 390px）を画面中央に置く
+.p-mv__copy-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 390px;
+  margin-inline: auto;
+}
+
+@include mq(lg) {
+  .p-mv__copy-group {
+    max-width: none;
+    margin-inline: 0;
+  }
+}
+
+// ---------------------------------------------------------
+// コピー
+// ---------------------------------------------------------
+.p-mv__maincopy {
+  color: var(--color-text-inverse);
+  font-size: 28px;
+  font-weight: var(--fw-bold);
+  line-height: var(--line-height-title);
+}
+
+@include mq(lg) {
+  .p-mv__maincopy {
+    font-size: 52px;
+  }
+}
+
+.p-mv__maincopy-accent {
+  color: var(--color-accent);
+  font-size: 38px;
+  font-weight: var(--fw-bold);
+  line-height: var(--line-height-title);
+}
+
+@include mq(lg) {
+  .p-mv__maincopy-accent {
+    font-size: 72px;
+  }
+}
+
+.p-mv__subcopy {
+  margin-top: 10px;
+  color: var(--color-text-inverse);
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  line-height: 1.8;
+}
+
+@include mq(lg) {
+  .p-mv__subcopy {
+    margin-top: 20px;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+}
+
+// PC カンプでは読点なしの 2 行組み、SP カンプでは読点入り
+@include mq(lg) {
+  .p-mv__subcopy-comma {
+    display: none;
+  }
+}
+
+// ---------------------------------------------------------
+// AI × 業務改善 × 教育
+// ---------------------------------------------------------
+.p-mv__concept {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+}
+
+@include mq(lg) {
+  .p-mv__concept {
+    margin-top: 30px;
+  }
+}
+
+.p-mv__concept-item {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 68px;
+  height: 68px;
+  border: 1.6px solid var(--color-text-inverse);
+  border-radius: 50%;
+  color: var(--color-text-inverse);
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+  line-height: 1.5;
+  text-align: center;
+}
+
+@include mq(lg) {
+  .p-mv__concept-item {
+    width: 102px;
+    height: 102px;
+    font-size: 18px;
+  }
+}
+
+.p-mv__concept-item--ai {
+  font-size: 16px;
+}
+
+@include mq(lg) {
+  .p-mv__concept-item--ai {
+    font-size: 24px;
+  }
+}
+
+// 円の接点に重ねる ×
+.p-mv__concept-item + .p-mv__concept-item::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 1;
+  width: 22px;
+  height: 22px;
+  background-image: url("../../images/common/icon-cross.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: translate(-50%, -50%);
+}
+
+@include mq(lg) {
+  .p-mv__concept-item + .p-mv__concept-item::before {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+// ---------------------------------------------------------
+// SP のボタン 2 本（PC は登録フォームに置き換わる）
+// ---------------------------------------------------------
+.p-mv__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 390px;
+  margin-top: 30px;
+}
+
+@include mq(lg) {
+  .p-mv__buttons {
+    display: none;
+  }
+}
+
+// ---------------------------------------------------------
+// 登録フォーム（PC のみ / 上・右 margin 50px 固定）
+// ---------------------------------------------------------
+.p-mv__form {
+  display: none;
+}
+
+@include mq(lg) {
+  .p-mv__form {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 320px;
+    padding-block: 30px;
+    padding-inline: 20px;
+    background-color: var(--color-bg);
+    filter: drop-shadow(0 4px 2px var(--color-shadow));
+  }
+}
+
+.p-mv__form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 236px;
+}
+
+.p-mv__form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.p-mv__form-label {
+  color: var(--color-main);
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  line-height: 1.5;
+}
+
+.p-mv__form-input {
+  width: 100%;
+  padding-block: 12px;
+  padding-inline: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+  background-color: var(--color-bg-input);
+  color: var(--color-main);
+  font-size: 12px;
+  font-weight: var(--fw-regular);
+  line-height: 1.5;
+}
+
+.p-mv__form-input::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+.p-mv__form-input:focus-visible {
+  border-color: var(--color-accent);
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+.p-mv__form-agreement {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.p-mv__form-checkbox {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  margin: 0;
+  border: 1px solid var(--color-text-placeholder);
+  border-radius: 2px;
+  accent-color: var(--color-accent);
+  appearance: auto;
+}
+
+.p-mv__form-checkbox:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.p-mv__form-agreement-text {
+  margin-left: 8px;
+  color: var(--color-main);
+  font-size: 12px;
+  font-weight: var(--fw-regular);
+  line-height: 1.5;
+}
+
+.p-mv__form-agreement-link {
+  color: var(--color-accent);
+  transition: opacity var(--duration) var(--easing);
+}
+
+@media (any-hover: hover) {
+  .p-mv__form-agreement-link:hover {
+    opacity: 0.7;
+  }
+}
+
+.p-mv__form-agreement-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.p-mv__form-button {
+  width: 280px;
+  margin-top: 15px;
+  padding-block: 8px;
+}
+
+// カンプ: signupform は要素間 20px、signupform_input の内側は 15px
+.p-mv__form-divider + .p-mv__form-button {
+  margin-top: 20px;
+}
+
+.p-mv__form-divider {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  width: 236px;
+  margin-top: 20px;
+  color: var(--color-main);
+  font-size: 12px;
+  font-weight: var(--fw-regular);
+  line-height: 1.5;
+}
+
+.p-mv__form-divider::before,
+.p-mv__form-divider::after {
+  content: "";
+  width: 102px;
+  height: 1px;
+  background-color: var(--color-main);
+}

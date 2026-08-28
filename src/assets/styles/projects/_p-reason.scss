@@ -1,0 +1,175 @@
+@use "@/global/breakpoints" as *;
+
+.p-reason {
+  background-color: var(--color-bg-section);
+}
+
+// PC カンプでは problem のカードが 104px 重なるため、その分だけ上を空ける
+@include mq(lg) {
+  .p-reason {
+    padding-top: 204px;
+  }
+}
+
+.p-reason__content {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+@include mq(md) {
+  .p-reason__content {
+    gap: 72px;
+  }
+}
+
+// 本文側は #FDFDFD の帯（カンプ: 幅 1000px ＝ 1440px の 69.44%）
+.p-reason__item {
+  width: 100%;
+  background-color: var(--color-bg);
+}
+
+@include mq(md) {
+  .p-reason__item {
+    background-image: linear-gradient(to right, transparent 30.56%, var(--color-bg) 30.56%);
+    background-color: transparent;
+  }
+
+  .p-reason__item--reverse {
+    background-image: linear-gradient(to left, transparent 30.56%, var(--color-bg) 30.56%);
+  }
+}
+
+.p-reason__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 390px;
+  margin-inline: auto;
+  padding-block: 30px;
+  padding-inline: var(--inner-padding);
+}
+
+// PC: 画像と本文を左右に配置（カンプ 1440px の実寸を % 換算）
+@include mq(md) {
+  .p-reason__inner {
+    flex-direction: row;
+    gap: 0;
+    align-items: center;
+    max-width: calc(var(--inner-width) + 40px * 2);
+    padding-block: 35px;
+    padding-inline: 40px;
+  }
+
+  .p-reason__item--reverse .p-reason__inner {
+    flex-direction: row-reverse;
+  }
+}
+
+.p-reason__figure {
+  width: 100%;
+}
+
+@include mq(md) {
+  .p-reason__figure {
+    // 475 ÷ 1120（インナー幅）
+    width: 42.41%;
+    margin-left: 3.75%;
+  }
+
+  .p-reason__item--reverse .p-reason__figure {
+    margin-right: 3.75%;
+    margin-left: 0;
+  }
+}
+
+.p-reason__figure img {
+  width: 100%;
+  height: 216px;
+  object-fit: cover;
+}
+
+@include mq(md) {
+  .p-reason__figure img {
+    height: 329px;
+  }
+}
+
+.p-reason__text {
+  width: 100%;
+}
+
+@include mq(md) {
+  .p-reason__text {
+    // 560 ÷ 1120、左右の余白 50px は内側に持たせる
+    width: 50%;
+    margin-left: 3.84%;
+    padding-inline: 50px;
+  }
+
+  .p-reason__item--reverse .p-reason__text {
+    margin-right: 3.84%;
+    margin-left: 0;
+  }
+}
+
+.p-reason__heading {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-reason__number {
+  color: var(--color-accent);
+  font-family: var(--font-en);
+  font-size: 16px;
+  font-weight: var(--fw-bold);
+  line-height: 1.8;
+}
+
+@include mq(md) {
+  .p-reason__number {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+}
+
+.p-reason__title {
+  color: var(--color-main);
+  font-size: 24px;
+  font-weight: var(--fw-bold);
+  line-height: 1.8;
+}
+
+@include mq(md) {
+  .p-reason__title {
+    line-height: 1.5;
+  }
+}
+
+// カンプの 3px アクセントライン
+.p-reason__heading::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 3px;
+  margin-top: 20px;
+  background-color: var(--color-accent);
+}
+
+.p-reason__heading + .p-reason__description {
+  margin-top: 20px;
+}
+
+.p-reason__description {
+  color: var(--color-main);
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  line-height: 1.8;
+}
+
+@include mq(md) {
+  .p-reason__description {
+    line-height: 1.5;
+  }
+}
