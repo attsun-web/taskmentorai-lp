@@ -2,18 +2,18 @@ name: Deploy to Xserver
 
 # dist/ をビルドして id-lab.net/portfolio/taskmentorai/ へ FTPS 転送する。
 #
-# 【現状このワークフローは動かない】
-# エックスサーバーの「国外IPアクセス制限設定」により、海外IPで動く GitHub Actions の
+# エックスサーバーの「国外IPアクセス制限設定」が有効だと、海外IPで動く GitHub Actions の
 # ランナーからは FTP 接続が遮断され、Deploy ステップが Timeout (control socket) で失敗する。
-# サーバーパネル →「国外IPアクセス制限設定」で FTP の制限を OFF にすれば動作する。
-# それまでは dist/ を FTP ソフトで手動転送する運用とし、push トリガーは外してある。
+# サーバーパネル →「国外IPアクセス制限設定」で FTP の制限を OFF にしておくこと。
 #
-# 有効化するときは Settings → Secrets and variables → Actions に以下を登録すること。
+# Settings → Secrets and variables → Actions に以下が必要。
 #   FTP_SERVER   : エックスサーバーの FTP ホスト名（例 sv0000.xserver.jp）
 #   FTP_USERNAME : FTP ユーザー名
 #   FTP_PASSWORD : FTP パスワード
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 env:
@@ -39,7 +39,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      # base を /TaskMentorAI/ にしてビルド（サブディレクトリ配信のため）
+      # base を /portfolio/taskmentorai/ にしてビルド（サブディレクトリ配信のため）
       - name: Build
         run: yarn build:deploy
 

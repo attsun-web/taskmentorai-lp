@@ -84,22 +84,16 @@ yarn build:deploy   # base = /portfolio/taskmentorai/（サブディレクトリ
 
 公開 URL が `https://id-lab.net/portfolio/taskmentorai/` のため、本番用は必ず `yarn build:deploy` を使います。`yarn build` の成果物はアセットのパスがルート絶対（`/assets/...`）になり、サブディレクトリでは 404 になります。
 
-### 転送（手動）
+### 自動デプロイ
 
-`yarn build:deploy` の後、`dist/` の **中身** を FTP ソフトで次の場所へ転送します。
+`main` に push すると `.github/workflows/deploy.yml` が走り、`yarn build:deploy` の成果物を FTPS で転送します。手動実行は Actions タブの「Deploy to Xserver」→ Run workflow から。
 
 | 項目 | 値 |
 | --- | --- |
-| 転送元 | `dist/` の中身（`index.html`、`assets/`、`favicon.png`、`apple-touch-icon.png`、`ogp.jpg`） |
-| 転送先 | `/id-lab.net/public_html/portfolio/taskmentorai/` |
+| 転送元 | `dist/` の中身（`.vite/` は除外） |
+| 転送先 | `/id-lab.net/public_html/portfolio/taskmentorai/`（ワークフローの `FTP_SERVER_DIR`） |
 
-`dist` フォルダごと置かないでください。`/portfolio/taskmentorai/dist/` になり、アセットのパス（`/portfolio/taskmentorai/assets/...`）と合わなくなります。
-
-### 自動デプロイが使えない理由
-
-`.github/workflows/deploy.yml` に FTPS 転送のワークフローがありますが、**エックスサーバーの「国外IPアクセス制限設定」により GitHub Actions からは接続できません**。ランナーは海外 IP で動くため、FTP 接続が遮断され `Timeout (control socket)` で失敗します。タイムアウト値を伸ばしても解決しません。
-
-自動化する場合は、サーバーパネル →「国外IPアクセス制限設定」で FTP の制限を OFF にしたうえで、ワークフローの `on:` に `push` を戻し、Settings → Secrets and variables → Actions に以下を登録します。
+Settings → Secrets and variables → Actions に以下が必要です。
 
 | Secret | 内容 |
 | --- | --- |
@@ -107,7 +101,13 @@ yarn build:deploy   # base = /portfolio/taskmentorai/（サブディレクトリ
 | `FTP_USERNAME` | FTP ユーザー名 |
 | `FTP_PASSWORD` | FTP パスワード |
 
-転送先はワークフロー内の `FTP_SERVER_DIR` で指定しています。
+**前提: サーバーパネルの「国外IPアクセス制限設定」で FTP の制限が OFF になっていること。** GitHub Actions のランナーは海外 IP で動くため、制限が ON だと接続そのものが遮断され `Timeout (control socket)` で失敗します（タイムアウト値を伸ばしても解決しません）。
+
+### 手動転送（フォールバック）
+
+Actions が使えないときは `yarn build:deploy` の後、`dist/` の **中身** を FTP ソフトで `/id-lab.net/public_html/portfolio/taskmentorai/` へ転送します。
+
+`dist` フォルダごと置かないでください。`/portfolio/taskmentorai/dist/` になり、アセットのパス（`/portfolio/taskmentorai/assets/...`）と合わなくなります。
 
 ### 公開 URL を変えるとき
 
