@@ -26,7 +26,7 @@
     "dev": "concurrently \"yarn watch:scss\" \"vite\"",
     "watch:scss": "node bin/watch-scss-globs.js",
     "build": "vite build --mode static",
-    "build:deploy": "vite build --mode static --base=/TaskMentorAI/",
+    "build:deploy": "vite build --mode static --base=/portfolio/taskmentorai/",
     "build:wp": "vite build --mode wp && node bin/clean-dev-files.js",
     "wp-start": "node bin/update-wp-config.js --wp-env && wp-env start",
     "wp-stop": "wp-env stop",

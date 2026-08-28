@@ -1,6 +1,6 @@
 name: Deploy to Xserver
 
-# main へ push すると dist/ をビルドして id-lab.net/TaskMentorAI/ へ FTPS 転送する。
+# main へ push すると dist/ をビルドして id-lab.net/portfolio/taskmentorai/ へ FTPS 転送する。
 # 事前に GitHub の Settings → Secrets and variables → Actions で以下を登録すること。
 #   FTP_SERVER   : エックスサーバーの FTP ホスト名（例 sv0000.xserver.jp）
 #   FTP_USERNAME : FTP ユーザー名
@@ -14,7 +14,7 @@ on:
 env:
   # エックスサーバーの FTP はルート直下にドメイン名のディレクトリが並ぶ構成。
   # 実際のパスがこれと異なる場合はここを書き換える。
-  FTP_SERVER_DIR: /id-lab.net/public_html/TaskMentorAI/
+  FTP_SERVER_DIR: /id-lab.net/public_html/portfolio/taskmentorai/
 
 jobs:
   deploy:

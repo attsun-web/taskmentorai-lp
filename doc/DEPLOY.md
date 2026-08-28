@@ -79,10 +79,10 @@ TaskMentorAI の LP（`src/index.html`）は WordPress テーマとは別系統�
 
 ```bash
 yarn build          # base = /（ドメイン直下に置く場合）
-yarn build:deploy   # base = /TaskMentorAI/（サブディレクトリ配信用）
+yarn build:deploy   # base = /portfolio/taskmentorai/（サブディレクトリ配信用）
 ```
 
-公開 URL が `https://id-lab.net/TaskMentorAI/` のため、本番用は必ず `yarn build:deploy` を使います。`yarn build` の成果物はアセットのパスがルート絶対（`/assets/...`）になり、サブディレクトリでは 404 になります。
+公開 URL が `https://id-lab.net/portfolio/taskmentorai/` のため、本番用は必ず `yarn build:deploy` を使います。`yarn build` の成果物はアセットのパスがルート絶対（`/assets/...`）になり、サブディレクトリでは 404 になります。
 
 ### 自動デプロイ
 
@@ -94,8 +94,8 @@ yarn build:deploy   # base = /TaskMentorAI/（サブディレクトリ配信用�
 | `FTP_USERNAME` | FTP ユーザー名 |
 | `FTP_PASSWORD` | FTP パスワード |
 
-転送先はワークフロー内の `FTP_SERVER_DIR`（既定 `/id-lab.net/public_html/TaskMentorAI/`）です。FTP のディレクトリ構成が異なる場合はここを書き換えます。
+転送先はワークフロー内の `FTP_SERVER_DIR`（既定 `/id-lab.net/public_html/portfolio/taskmentorai/`）です。FTP のディレクトリ構成が異なる場合はここを書き換えます。
 
 ### 公開 URL を変えるとき
 
-`package.json` の `build:deploy` の `--base`、`src/index.html` の `og:url` / `og:image` / `canonical` の3か所を揃えて変更します。
+`package.json` の `build:deploy` の `--base`、`src/index.html` の `og:url` / `og:image` / `canonical`、`.github/workflows/deploy.yml` の `FTP_SERVER_DIR` の4か所を揃えて変更します。
