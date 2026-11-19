@@ -82,7 +82,7 @@ yarn build          # base = /（ドメイン直下に置く場合）
 yarn build:deploy   # base = /portfolio/taskmentorai/（サブディレクトリ配信用）
 ```
 
-公開 URL が `https://id-lab.net/portfolio/taskmentorai/` のため、本番用は必ず `yarn build:deploy` を使います。`yarn build` の成果物はアセットのパスがルート絶対（`/assets/...`）になり、サブディレクトリでは 404 になります。
+公開 URL が `https://ideadoorworks.com/portfolio/taskmentorai/` のため、本番用は必ず `yarn build:deploy` を使います。`yarn build` の成果物はアセットのパスがルート絶対（`/assets/...`）になり、サブディレクトリでは 404 になります。
 
 ### 自動デプロイ
 
@@ -91,7 +91,7 @@ yarn build:deploy   # base = /portfolio/taskmentorai/（サブディレクトリ
 | 項目 | 値 |
 | --- | --- |
 | 転送元 | `dist/` の中身（`.vite/` は除外） |
-| 転送先 | `/id-lab.net/public_html/portfolio/taskmentorai/`（ワークフローの `FTP_SERVER_DIR`） |
+| 転送先 | `/ideadoorworks.com/public_html/portfolio/taskmentorai/`（ワークフローの `FTP_SERVER_DIR`） |
 
 Settings → Secrets and variables → Actions に以下が必要です。
 
@@ -105,10 +105,14 @@ Settings → Secrets and variables → Actions に以下が必要です。
 
 ### 手動転送（フォールバック）
 
-Actions が使えないときは `yarn build:deploy` の後、`dist/` の **中身** を FTP ソフトで `/id-lab.net/public_html/portfolio/taskmentorai/` へ転送します。
+Actions が使えないときは `yarn build:deploy` の後、`dist/` の **中身** を FTP ソフトで `/ideadoorworks.com/public_html/portfolio/taskmentorai/` へ転送します。
 
 `dist` フォルダごと置かないでください。`/portfolio/taskmentorai/dist/` になり、アセットのパス（`/portfolio/taskmentorai/assets/...`）と合わなくなります。
 
 ### 公開 URL を変えるとき
 
 `package.json` の `build:deploy` の `--base`、`src/index.html` の `og:url` / `og:image` / `canonical`、`.github/workflows/deploy.yml` の `FTP_SERVER_DIR` の4か所を揃えて変更します。
+
+### 検索エンジンからの除外
+
+デモサイトのため、`src/index.html` に `<meta name="robots" content="noindex, nofollow" />` を入れています。クローラーがこのタグを読めなくなるので、`robots.txt` の `Disallow` は併用しないでください。

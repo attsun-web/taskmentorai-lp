@@ -1,6 +1,6 @@
 name: Deploy to Xserver
 
-# dist/ をビルドして id-lab.net/portfolio/taskmentorai/ へ FTPS 転送する。
+# dist/ をビルドして ideadoorworks.com/portfolio/taskmentorai/ へ FTPS 転送する。
 #
 # エックスサーバーの「国外IPアクセス制限設定」が有効だと、海外IPで動く GitHub Actions の
 # ランナーからは FTP 接続が遮断され、Deploy ステップが Timeout (control socket) で失敗する。
@@ -19,7 +19,7 @@ on:
 env:
   # エックスサーバーの FTP はルート直下にドメイン名のディレクトリが並ぶ構成。
   # 実際のパスがこれと異なる場合はここを書き換える。
-  FTP_SERVER_DIR: /id-lab.net/public_html/portfolio/taskmentorai/
+  FTP_SERVER_DIR: /ideadoorworks.com/public_html/portfolio/taskmentorai/
 
 jobs:
   deploy:
